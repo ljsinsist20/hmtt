@@ -18,6 +18,7 @@ module.exports = {
         'eol-last': 0, // 最后可以有空格
         'vue/multi-word-component-names': 0,
         // semi: 0
-        camelcase: 0 // 关闭驼峰
+        camelcase: 0, // 关闭驼峰
+        'space-before-function-paren': 0
     }
 }

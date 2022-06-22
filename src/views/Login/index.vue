@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import { loginAPI } from '@/api/index'
 import { Notify } from 'vant'
+import { mapActions } from 'vuex'
 export default {
   name: 'Login',
   data () {
@@ -44,13 +44,15 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['asyncLoginAction']),
     async onSubmit () {
       this.isLoading = true
       try {
-        const res = await loginAPI(this.formLogin)
-        const { token, refresh_token } = res.data.data
-        console.log(token)
-        console.log(refresh_token)
+        // const res = await loginAPI(this.formLogin)
+        // const { token, refresh_token } = res.data.data
+        // console.log(token)
+        // console.log(refresh_token)
+        await this.asyncLoginAction(this.formLogin)
         Notify({ type: 'success', message: '登录成功' })
         this.isLoading = false
       } catch (error) {

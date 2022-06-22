@@ -6,16 +6,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        token: '',
-        refresh_token: ''
+        token: localStorage.getItem('token'),
+        refresh_token: localStorage.getItem('refresh_token')
     },
     getters: {},
     mutations: {
         setToken(state, token) {
             state.token = token
+            localStorage.setItem('token', token)
         },
         setRefreshToken(state, refresh_token) {
             state.refresh_token = refresh_token
+            localStorage.setItem('refresh_token', refresh_token)
         }
     },
     actions: {

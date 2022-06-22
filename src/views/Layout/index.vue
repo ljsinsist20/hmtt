@@ -1,5 +1,6 @@
 <template>
   <div>
+      <!-- 中间内容 -->
       <div class="home_container">
         <router-view></router-view>
       </div>

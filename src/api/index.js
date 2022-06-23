@@ -30,7 +30,7 @@ export const userChannelAPI = () => {
     })
 }
 
-export const artcilesListAPI = ({ channelId }) => {
+export const artcilesListAPI = ({ channelId, timestamp }) => {
     return request({
         url: '/v1_0/articles',
         // headers: {
@@ -38,7 +38,7 @@ export const artcilesListAPI = ({ channelId }) => {
         // }
         params: {
             channel_id: channelId,
-            timestamp: (new Date()).getTime()
+            timestamp: timestamp || (new Date()).getTime()
         }
     })
 }

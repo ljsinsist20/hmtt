@@ -1,37 +1,65 @@
 <template>
-  <van-cell-group>
-    <van-cell>
-      <template #title>
-        <div class="title-box">
-          <span>{{obj.title}}</span>
-          <img class="thumb" v-if="obj.cover.type === 1" :src="obj.cover.images" >
-        </div>
-        <div class="thumb-ox" v-if="obj.cover.type > 1">
-            <img class="thumb" v-for="(imaUrl, index) in obj.cover.images" :src="imaUrl" :key="index" >
-        </div>
-      </template>
-      <template #label>
-        <div class="lable-box">
-          <div>
-            <span>{{obj.aut_name}}</span>
-            <span>{{obj.comm_count}}</span>
-            <span>{{obj.pubdate}}</span>
+  <div>
+    <van-cell-group>
+      <van-cell>
+        <template #title>
+          <div class="title-box">
+            <span>{{obj.title}}</span>
+            <img class="thumb" v-if="obj.cover.type === 1" :src="obj.cover.images">
           </div>
-          <van-icon name="cross"></van-icon>
-        </div>
-      </template>
-    </van-cell>
-  </van-cell-group>
+          <div class="thumb-ox" v-if="obj.cover.type > 1">
+            <img class="thumb" v-for="(imaUrl, index) in obj.cover.images" :src="imaUrl" :key="index">
+          </div>
+        </template>
+        <template #label>
+          <div class="lable-box">
+            <div>
+              <span>{{obj.aut_name}}</span>
+              <span>{{obj.comm_count}}</span>
+              <span>{{obj.pubdate}}</span>
+            </div>
+            <van-icon name="cross" @click="show = true"></van-icon>
+          </div>
+        </template>
+      </van-cell>
+    </van-cell-group>
+    <van-action-sheet v-model="show" :actions="actions" @select="onSelect" get-container="body"
+      :cancel-text="cancelText" close-on-click-action @cancel="onCancel" />
+  </div>
 </template>
 
 <script>
+import { firstActions, secondActions } from '@/api/report'
 export default {
   props: {
     obj: {
-        type: Object,
-        default() {
-            return {}
-        }
+      type: Object,
+      default () {
+        return {}
+      }
+    }
+  },
+  data () {
+    return {
+      show: false,
+      actions: firstActions,
+      cancelText: '取消'
+    }
+  },
+  methods: {
+    onSelect (item) {
+      if (item.name === '反馈垃圾内容') {
+        this.actions = secondActions
+        this.cancelText = '返回'
+        this.show = true
+      }
+    },
+    onCancel () {
+      if (this.cancelText === '返回') {
+        this.actions = firstActions
+        this.cancelText = '取消'
+        this.show = true
+      }
     }
   }
 }
@@ -49,15 +77,15 @@ export default {
   align-items: flex-start;
 }
 
-.lable-box span{
-    margin: 0 3px;
-    &:first-child{
-        margin-left: 0;
-    }
+.lable-box span {
+  margin: 0 3px;
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 .thumb {
-    width: 113px;
-    height: 70px;
+  width: 113px;
+  height: 70px;
 }
 </style>

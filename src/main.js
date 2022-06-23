@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'amfe-flexible'
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh } from 'vant'
+import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, ActionSheet } from 'vant'
 // import axios from 'axios'
 // Vue.prototype.$axios = axios
 Vue.use(NavBar)
@@ -20,6 +20,7 @@ Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(List)
 Vue.use(PullRefresh)
+Vue.use(ActionSheet)
 
 Vue.config.productionTip = false
 

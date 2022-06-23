@@ -3,7 +3,8 @@
     <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
       <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" offset="50"
         :immediate-check="false">
-        <article-item v-for="item in artcilesList" :key="item.art_id" :obj="item" @dislike="dislikeFn"></article-item>
+        <article-item v-for="item in artcilesList" :key="item.art_id" :obj="item" @dislike="dislikeFn"
+          @report="reportFn"></article-item>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -11,7 +12,7 @@
 
 <script>
 import ArticleItem from '@/views/Home/components/ArticleItem.vue'
-import { artcilesListAPI, articleDislikesAPI } from '@/api/index'
+import { artcilesListAPI, articleDislikesAPI, articleReportAPI } from '@/api/index'
 import { timeAgo } from '@/utils/date'
 import { Notify } from 'vant'
 
@@ -70,6 +71,19 @@ export default {
         Notify({ type: 'success', message: '反馈成功' })
       } catch (error) {
         Notify({ type: 'warning', message: '反馈失败' })
+      }
+    },
+
+    async reportFn (obj, val) {
+      try {
+        await articleReportAPI({
+           target: obj.art_id,
+            type: val,
+            remark: 'TODO'
+        })
+        Notify({ type: 'success', message: '举报成功' })
+      } catch (error) {
+        Notify({ type: 'warning', message: '举报失败' })
       }
     }
   }

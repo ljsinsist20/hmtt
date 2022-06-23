@@ -55,3 +55,18 @@ export const articleDislikesAPI = ({ target }) => {
         }
     })
 }
+
+export const articleReportAPI = ({ target, type, remark }) => {
+    return request({
+        url: '/v1_0/article/reports',
+        method: 'POST',
+        data: {
+            target: target,
+            type: type,
+            remark: remark
+        },
+        headers: {
+            Authorization: 'Bearer ' + store.state.token
+        }
+    })
+}

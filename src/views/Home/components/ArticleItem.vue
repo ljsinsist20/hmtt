@@ -56,6 +56,10 @@ export default {
       } else if (item.name === '不感兴趣') {
         this.$emit('dislike', this.obj)
         this.show = false
+      } else {
+        this.$emit('report', this.obj, item.value)
+        this.actions = firstActions
+        this.show = false
       }
     },
     onCancel () {

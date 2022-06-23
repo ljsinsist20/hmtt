@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import store from '@/store'
+// import store from '@/store'
 
 export const allChannelListAPI = () => {
     return request({
@@ -23,19 +23,19 @@ export const loginAPI = ({
 
 export const userChannelAPI = () => {
     return request({
-        url: '/v1_0/user/channels',
-        headers: {
-            Authorization: 'Bearer ' + store.state.token
-        }
+        url: '/v1_0/user/channels'
+            // headers: {
+            //     Authorization: 'Bearer ' + store.state.token
+            // }
     })
 }
 
 export const artcilesListAPI = ({ channelId, timestamp }) => {
     return request({
         url: '/v1_0/articles',
-        headers: {
-            Authorization: 'Bearer ' + store.state.token
-        },
+        // headers: {
+        //     Authorization: 'Bearer ' + store.state.token
+        // },
         params: {
             channel_id: channelId,
             timestamp: timestamp || (new Date()).getTime()
@@ -49,10 +49,10 @@ export const articleDislikesAPI = ({ target }) => {
         method: 'POST',
         data: {
             target: target
-        },
-        headers: {
-            Authorization: 'Bearer ' + store.state.token
         }
+        // headers: {
+        //     Authorization: 'Bearer ' + store.state.token
+        // }
     })
 }
 
@@ -64,9 +64,9 @@ export const articleReportAPI = ({ target, type, remark }) => {
             target: target,
             type: type,
             remark: remark
-        },
-        headers: {
-            Authorization: 'Bearer ' + store.state.token
         }
+        // headers: {
+        //     Authorization: 'Bearer ' + store.state.token
+        // }
     })
 }

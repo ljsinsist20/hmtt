@@ -1,9 +1,11 @@
 <template>
   <div>
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" offset="50"
-      :immediate-check="false">
-      <article-item v-for="item in artcilesList" :key="item.art_id" :obj="item"></article-item>
-    </van-list>
+    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" offset="50"
+        :immediate-check="false">
+        <article-item v-for="item in artcilesList" :key="item.art_id" :obj="item"></article-item>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -21,16 +23,27 @@ export default {
       artcilesList: [],
       loading: false,
       finished: false,
-      nextTime: null
+      nextTime: null,
+      refreshing: false
     }
   },
   components: {
     ArticleItem
   },
+  async created () {
+    this.getArticleList()
+  },
   methods: {
     timeAgo: timeAgo,
     onLoad () {
-        this.getArticleList()
+      this.getArticleList()
+    },
+    onRefresh () {
+      this.nextTime = null
+      // 清空列表数据
+      this.artcilesList = []
+      this.getArticleList()
+      this.refreshing = false
     },
     async getArticleList () {
       const res = await artcilesListAPI({
@@ -48,9 +61,6 @@ export default {
         this.loading = false
       }
     }
-  },
-  async created () {
-    this.getArticleList()
   }
 }
 </script>

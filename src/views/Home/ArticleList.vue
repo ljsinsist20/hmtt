@@ -10,6 +10,9 @@ import { artcilesListAPI } from '@/api/index'
 import { timeAgo } from '@/utils/date'
 
 export default {
+    props: {
+        cid: Number
+    },
     data () {
         return {
             artcilesList: []
@@ -23,7 +26,7 @@ export default {
     },
     async created () {
         const res = await artcilesListAPI({
-            channelId: 0
+            channelId: this.cid
         })
         res.data.data.results.forEach((obj) => {
             obj.pubdate = this.timeAgo(obj.pubdate)

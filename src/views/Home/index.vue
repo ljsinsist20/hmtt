@@ -10,9 +10,9 @@
       </template>
     </van-nav-bar>
     <!-- 顶部频道 -->
-    <van-tabs v-model="active" animated sticky offset-top="1.226667rem">
-      <van-tab v-for="item in channelList" :key="item.id" :title="item.name">
-        <article-list></article-list>
+    <van-tabs v-model="channelId" animated sticky offset-top="1.226667rem">
+      <van-tab v-for="item in channelList" :key="item.id" :title="item.name" :name="item.id">
+        <article-list :cid="channelId"></article-list>
       </van-tab>
     </van-tabs>
   </div>
@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       imgObj: logoPng,
-      active: 0,
+      channelId: 0, // 默认0是推荐
       channelList: []
     }
   },

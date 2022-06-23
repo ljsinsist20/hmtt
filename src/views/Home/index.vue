@@ -15,6 +15,12 @@
         <article-list :cid="channelId"></article-list>
       </van-tab>
     </van-tabs>
+    <!-- +号图标 -->
+     <van-icon name="plus" class="moreChannels" size="0.373rem" @click="show = true" ></van-icon>
+     <!-- 弹出层组件 -->
+     <van-popup class="edit_wrap" v-model="show" >
+      <channel-edit @close="show = false"></channel-edit>
+     </van-popup>
   </div>
 </template>
 
@@ -22,6 +28,7 @@
 import logoPng from '../../assets/toutiao_logo.png'
 import { userChannelAPI } from '@/api'
 import ArticleList from '@/views/Home/ArticleList.vue'
+import ChannelEdit from '@/views/Home/ChannelEdit.vue'
 
 export default {
   name: 'Home',
@@ -29,11 +36,13 @@ export default {
     return {
       imgObj: logoPng,
       channelId: 0, // 默认0是推荐
-      channelList: []
+      channelList: [],
+      show: false
     }
   },
   components: {
-    ArticleList
+    ArticleList,
+    ChannelEdit
   },
   async created () {
     const res = await userChannelAPI()
@@ -54,5 +63,22 @@ export default {
 
 /deep/ .van-tabs__content {
   padding-top: 44px;
+}
+
+/deep/ .van-tabs__wrap {
+  padding-right: 30px;
+  background-color: #fff;
+}
+
+.moreChannels {
+  position: fixed;
+  top: 62px;
+  right: 8px;
+  z-index: 999;
+}
+
+.edit_wrap{
+  width: 100%;
+  height: 100%;
 }
 </style>

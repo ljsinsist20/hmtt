@@ -1,0 +1,63 @@
+<template>
+  <van-cell-group>
+    <van-cell>
+      <template #title>
+        <div class="title-box">
+          <span>{{obj.title}}</span>
+          <img class="thumb" v-if="obj.cover.type === 1" :src="obj.cover.images" >
+        </div>
+        <div class="thumb-ox" v-if="obj.cover.type > 1">
+            <img class="thumb" v-for="(imaUrl, index) in obj.cover.images" :src="imaUrl" :key="index" >
+        </div>
+      </template>
+      <template #label>
+        <div class="lable-box">
+          <div>
+            <span>{{obj.aut_name}}</span>
+            <span>{{obj.comm_count}}</span>
+            <span>{{obj.pubdate}}</span>
+          </div>
+          <van-icon name="cross"></van-icon>
+        </div>
+      </template>
+    </van-cell>
+  </van-cell-group>
+</template>
+
+<script>
+export default {
+  props: {
+    obj: {
+        type: Object,
+        default() {
+            return {}
+        }
+    }
+  }
+}
+</script>
+
+<style scoped lang="less">
+.title-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.lable-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.lable-box span{
+    margin: 0 3px;
+    &:first-child{
+        margin-left: 0;
+    }
+}
+
+.thumb {
+    width: 113px;
+    height: 70px;
+}
+</style>

@@ -9,7 +9,9 @@ export default new Vuex.Store({
         token: localStorage.getItem('token'),
         refresh_token: localStorage.getItem('refresh_token')
     },
-    getters: {},
+    getters: {
+        getToken: state => state.token
+    },
     mutations: {
         setToken(state, token) {
             state.token = token

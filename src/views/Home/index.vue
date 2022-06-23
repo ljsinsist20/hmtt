@@ -11,22 +11,33 @@
     </van-nav-bar>
     <!-- 顶部频道 -->
     <van-tabs v-model="active" animated sticky offset-top="1.226667rem">
-      <van-tab title="标签 1">内容 1</van-tab>
-      <van-tab title="标签 2">内容 2</van-tab>
-      <van-tab title="标签 3">内容 3</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
+      <van-tab v-for="item in channelList" :key="item.id" :title="item.name">
+        <article-list></article-list>
+      </van-tab>
     </van-tabs>
   </div>
 </template>
 
 <script>
 import logoPng from '../../assets/toutiao_logo.png'
+import { userChannelAPI } from '@/api'
+import ArticleList from '@/views/Home/ArticleList.vue'
+
 export default {
   name: 'Home',
   data () {
     return {
-      imgObj: logoPng
+      imgObj: logoPng,
+      active: 0,
+      channelList: []
     }
+  },
+  components: {
+    ArticleList
+  },
+  async created () {
+    const res = await userChannelAPI()
+    this.channelList = res.data.data.channels
   }
 }
 </script>
@@ -35,11 +46,13 @@ export default {
 .van-nav-bar {
   background: #007bff;
 }
+
 .logo {
   width: 100px;
   height: 30px;
 }
-/deep/ .van-tabs__content{
+
+/deep/ .van-tabs__content {
   padding-top: 44px;
 }
 </style>

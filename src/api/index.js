@@ -33,12 +33,25 @@ export const userChannelAPI = () => {
 export const artcilesListAPI = ({ channelId, timestamp }) => {
     return request({
         url: '/v1_0/articles',
-        // headers: {
-        //     Authorization: 'Bearer ' + store.state.token
-        // }
+        headers: {
+            Authorization: 'Bearer ' + store.state.token
+        },
         params: {
             channel_id: channelId,
             timestamp: timestamp || (new Date()).getTime()
+        }
+    })
+}
+
+export const articleDislikesAPI = ({ target }) => {
+    return request({
+        url: '/v1_0/article/dislikes',
+        method: 'POST',
+        data: {
+            target: target
+        },
+        headers: {
+            Authorization: 'Bearer ' + store.state.token
         }
     })
 }

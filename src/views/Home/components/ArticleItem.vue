@@ -30,6 +30,7 @@
 
 <script>
 import { firstActions, secondActions } from '@/api/report'
+
 export default {
   props: {
     obj: {
@@ -52,6 +53,9 @@ export default {
         this.actions = secondActions
         this.cancelText = '返回'
         this.show = true
+      } else if (item.name === '不感兴趣') {
+        this.$emit('dislike', this.obj)
+        this.show = false
       }
     },
     onCancel () {

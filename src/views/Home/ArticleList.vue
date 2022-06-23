@@ -3,7 +3,7 @@
     <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
       <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" offset="50"
         :immediate-check="false">
-        <article-item v-for="item in artcilesList" :key="item.art_id" :obj="item"></article-item>
+        <article-item v-for="item in artcilesList" :key="item.art_id" :obj="item" @dislike="dislikeFn"></article-item>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -11,8 +11,9 @@
 
 <script>
 import ArticleItem from '@/views/Home/components/ArticleItem.vue'
-import { artcilesListAPI } from '@/api/index'
+import { artcilesListAPI, articleDislikesAPI } from '@/api/index'
 import { timeAgo } from '@/utils/date'
+import { Notify } from 'vant'
 
 export default {
   props: {
@@ -59,6 +60,16 @@ export default {
         this.nextTime = res.data.data.pre_timestamp
         this.artcilesList = [...this.artcilesList, ...res.data.data.results]
         this.loading = false
+      }
+    },
+    async dislikeFn (obj) {
+      try {
+        await articleDislikesAPI({
+          target: obj.art_id
+        })
+        Notify({ type: 'success', message: '反馈成功' })
+      } catch (error) {
+        Notify({ type: 'warning', message: '反馈失败' })
       }
     }
   }

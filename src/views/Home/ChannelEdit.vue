@@ -23,7 +23,7 @@
             <!-- 徽标 -->
             <van-badge color="transparent" class="cross-badge">
               <template #content>
-                <van-icon name="cross" class="badge-icon" color="#cfcfcf" size="0.32rem" @click="deleteById" v-if="isEdit"></van-icon>
+                <van-icon name="cross" class="badge-icon" color="#cfcfcf" size="0.32rem" v-if="isEdit"></van-icon>
               </template>
             </van-badge>
           </div>
@@ -36,7 +36,7 @@
         <span>点击加载更多频道</span>
       </div>
       <van-row type="flex">
-        <van-col span="6" v-for="obj in unChannelList" :key="obj.id">
+        <van-col span="6" v-for="obj in unChannelList" :key="obj.id" @click="addChannel(obj)">
           <div class="channel-item van-hairline--surround">{{obj.name}}</div>
         </van-col>
       </van-row>
@@ -70,6 +70,13 @@ export default {
         if (index === -1) return true
         return false
       })
+    }
+  },
+  methods: {
+    addChannel (obj) {
+      if (this.isEdit === true) {
+        this.$emit('addChannel', obj)
+      }
     }
   }
 }

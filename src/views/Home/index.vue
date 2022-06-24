@@ -19,7 +19,7 @@
      <van-icon name="plus" class="moreChannels" size="0.373rem" @click="show = true" ></van-icon>
      <!-- 弹出层组件 -->
      <van-popup class="edit_wrap" v-model="show">
-      <channel-edit @close="show = false" :userChannelList="userChannelList"></channel-edit>
+      <channel-edit @close="show = false" :userChannelList="userChannelList" @addChannel="addChannelFn"></channel-edit>
      </van-popup>
   </div>
 </template>
@@ -47,6 +47,11 @@ export default {
   async created () {
     const res = await userChannelAPI()
     this.userChannelList = res.data.data.channels
+  },
+  methods: {
+    addChannelFn(obj) {
+      this.userChannelList.push(obj)
+    }
   }
 }
 </script>

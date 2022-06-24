@@ -5,6 +5,7 @@ import Layout from '@/views/Layout'
 import Home from '@/views/Home'
 import User from '@/views/User'
 import Search from '@/views/Search'
+import SearchResult from '@/views/Search/SearchResult'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,10 @@ const routes = [{
     {
         path: '/search',
         component: Search
+    },
+    {
+        path: '/search/:kw',
+        component: SearchResult
     }
 ]
 

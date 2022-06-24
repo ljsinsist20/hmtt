@@ -1,12 +1,13 @@
 <template>
   <div>
     <van-search v-fofo placeholder="请输入搜索关键词" v-model="kw" background="blue" show-action @input="onInput"
-      @cancel="$router.back()" />
+      @cancel="$router.back()" @search="OnSearch" />
     <!-- <van-list>
       <van-cell v-for="(item,index) in suggestList" :key="index" :title="lightFn(item, kw)" />
     </van-list> -->
     <div class="sugg-list" v-if="kw.length !== 0">
-      <div class="sugg-item" v-for="(item,index) in suggestList" :key="index" v-html="lightFn(item, kw)"></div>
+      <div class="sugg-item" v-for="(item,index) in suggestList" :key="index" v-html="lightFn(item, kw)"
+        @click="clickFn(item)"></div>
     </div>
     <div class="search-history" v-else>
       <van-cell title="搜索历史">
@@ -15,7 +16,7 @@
         </template>
       </van-cell>
       <div class="history-list">
-        <span v-for="(item, index) in history" :key="index">{{item}}</span>
+        <span v-for="(item, index) in history" :key="index" @click="historyCilckFn(item)">{{item}}</span>
       </div>
     </div>
   </div>
@@ -45,6 +46,19 @@ export default {
         })
         this.suggestList = res.data.data.options
       }, 500)
+    },
+    OnSearch () {
+      this.$router.push(`/search/${this.kw}`)
+    },
+    clickFn (item) {
+      this.$router.push({
+        path: `/search/${item}`
+      })
+    },
+    historyCilckFn (item) {
+      this.$router.push({
+        path: `/search/${item}`
+      })
     }
   }
 }

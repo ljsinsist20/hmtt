@@ -14,7 +14,7 @@
             点击进入频道
           </span>
         </span>
-        <span>编辑</span>
+        <span @click="isEdit = !isEdit">{{isEdit ? '完成': '编辑'}}</span>
       </div>
       <van-row type="flex">
         <van-col span="6" v-for="obj in userChannelList" :key="obj.id">
@@ -23,7 +23,7 @@
             <!-- 徽标 -->
             <van-badge color="transparent" class="cross-badge">
               <template #content>
-                <van-icon name="cross" class="badge-icon" color="#cfcfcf" size="0.32rem"></van-icon>
+                <van-icon name="cross" class="badge-icon" color="#cfcfcf" size="0.32rem" @click="deleteById" v-if="isEdit"></van-icon>
               </template>
             </van-badge>
           </div>
@@ -55,7 +55,8 @@ export default {
   },
   data () {
     return {
-      allChannelList: []
+      allChannelList: [],
+      isEdit: false
     }
   },
   async created () {

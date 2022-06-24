@@ -18,9 +18,9 @@
     <!-- +号图标 -->
     <van-icon name="plus" class="moreChannels" size="0.373rem" @click="show = true"></van-icon>
     <!-- 弹出层组件 -->
-    <van-popup class="edit_wrap" v-model="show">
+    <van-popup class="edit_wrap" v-model="show" @closed="onPopupClosed">
       <channel-edit @close="show = false" :userChannelList="userChannelList" @addChannel="addChannelFn"
-        @delChannel="delChannel"></channel-edit>
+        @delChannel="delChannel" ref="channelEdit"></channel-edit>
     </van-popup>
   </div>
 </template>
@@ -76,6 +76,10 @@ export default {
       const index = this.userChannelList.findIndex(obj => obj.id === id)
       this.userChannelList.splice(index, 1)
       this.updateChannel()
+    },
+
+    onPopupClosed() {
+      this.$refs.channelEdit.isEdit = false
     }
   }
 }

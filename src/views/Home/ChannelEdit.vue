@@ -18,13 +18,13 @@
       </div>
       <van-row type="flex">
         <van-col span="6" v-for="obj in userChannelList" :key="obj.id">
-          <div class="channel-item van-hairline--surround">
+          <div class="channel-item van-hairline--surround"  @click="delChannel(obj.id)">
             {{obj.name}}
             <!-- 徽标 -->
             <van-badge color="transparent" class="cross-badge">
               <template #content>
                 <van-icon name="cross" class="badge-icon" color="#cfcfcf" size="0.32rem"
-                  v-if="isEdit && obj.name != '推荐'" @click="delChannel(obj.id)"></van-icon>
+                  v-if="isEdit && obj.name != '推荐' "></van-icon>
               </template>
             </van-badge>
           </div>

@@ -2,17 +2,16 @@
   <div>
     <van-search v-fofo placeholder="请输入搜索关键词" v-model="kw" background="blue" show-action @input="onInput"
       @cancel="$router.back()" @search="OnSearch" />
-    <!-- <van-list>
-      <van-cell v-for="(item,index) in suggestList" :key="index" :title="lightFn(item, kw)" />
-    </van-list> -->
+    <!-- 关键词联想 -->
     <div class="sugg-list" v-if="kw.length !== 0">
       <div class="sugg-item" v-for="(item,index) in suggestList" :key="index" v-html="lightFn(item, kw)"
         @click="clickFn(item)"></div>
     </div>
+    <!-- 搜索历史 -->
     <div class="search-history" v-else>
       <van-cell title="搜索历史">
         <template #right-icon>
-          <van-icon name="delete" class="search-icon"></van-icon>
+          <van-icon name="delete" class="search-icon" @click="deleteHistory"></van-icon>
         </template>
       </van-cell>
       <div class="history-list">
@@ -32,7 +31,12 @@ export default {
       kw: '',
       timer: null,
       suggestList: [],
-      history: ['java', 'c++', 'python', '爬虫']
+      history: JSON.parse(localStorage.getItem('history')) || []
+    }
+  },
+  watch: {
+    history () {
+      localStorage.setItem('history', JSON.stringify(this.history))
     }
   },
   methods: {
@@ -48,17 +52,28 @@ export default {
       }, 500)
     },
     OnSearch () {
-      this.$router.push(`/search/${this.kw}`)
+      this.history.push(this.kw)
+      this.history = Array.from(new Set(this.history))
+      setTimeout(() => {
+        this.$router.push(`/search/${this.kw}`)
+      })
     },
     clickFn (item) {
-      this.$router.push({
-        path: `/search/${item}`
+      this.history.push(item)
+      this.history = Array.from(new Set(this.history))
+      setTimeout(() => {
+        this.$router.push({
+          path: `/search/${item}`
+        })
       })
     },
     historyCilckFn (item) {
       this.$router.push({
         path: `/search/${item}`
       })
+    },
+    deleteHistory() {
+        this.history = []
     }
   }
 }

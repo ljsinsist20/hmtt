@@ -85,7 +85,7 @@ export default {
       }
     },
     openById (id) {
-      this.$emit('openById', id)
+      if (this.isEdit === false) { this.$emit('openById', id) }
     }
   }
 }

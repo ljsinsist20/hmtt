@@ -20,7 +20,7 @@
     <!-- 弹出层组件 -->
     <van-popup class="edit_wrap" v-model="show" @closed="onPopupClosed">
       <channel-edit @close="show = false" :userChannelList="userChannelList" @addChannel="addChannelFn"
-        @delChannel="delChannel" ref="channelEdit"></channel-edit>
+        @delChannel="delChannel" ref="channelEdit" @openById="openByIdFn"></channel-edit>
     </van-popup>
   </div>
 </template>
@@ -78,8 +78,13 @@ export default {
       this.updateChannel()
     },
 
-    onPopupClosed() {
+    onPopupClosed () {
       this.$refs.channelEdit.isEdit = false
+    },
+
+    openByIdFn (id) {
+      this.show = false
+      this.channelId = id
     }
   }
 }

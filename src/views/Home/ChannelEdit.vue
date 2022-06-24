@@ -17,14 +17,14 @@
         <span @click="isEdit = !isEdit">{{isEdit ? '完成': '编辑'}}</span>
       </div>
       <van-row type="flex">
-        <van-col span="6" v-for="obj in userChannelList" :key="obj.id">
-          <div class="channel-item van-hairline--surround"  @click="delChannel(obj.id)">
+        <van-col span="6" v-for="obj in userChannelList" :key="obj.id" @click="openById(obj.id)">
+          <div class="channel-item van-hairline--surround">
             {{obj.name}}
             <!-- 徽标 -->
             <van-badge color="transparent" class="cross-badge">
               <template #content>
                 <van-icon name="cross" class="badge-icon" color="#cfcfcf" size="0.32rem"
-                  v-if="isEdit && obj.name != '推荐' "></van-icon>
+                  v-if="isEdit && obj.name != '推荐' " @click="delChannel(obj.id)"></van-icon>
               </template>
             </van-badge>
           </div>
@@ -83,6 +83,9 @@ export default {
       if (this.isEdit === true) {
         this.$emit('delChannel', id)
       }
+    },
+    openById (id) {
+      this.$emit('openById', id)
     }
   }
 }

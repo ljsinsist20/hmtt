@@ -6,7 +6,7 @@
         <img class="logo" :src="imgObj">
       </template>
       <template #right>
-        <van-icon name="search" size="0.48rem" color="#fff"></van-icon>
+        <van-icon name="search" size="0.48rem" color="#fff" @click="$router.push('/Search')"></van-icon>
       </template>
     </van-nav-bar>
     <!-- 顶部频道 -->

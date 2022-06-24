@@ -19,14 +19,15 @@
     <van-icon name="plus" class="moreChannels" size="0.373rem" @click="show = true"></van-icon>
     <!-- 弹出层组件 -->
     <van-popup class="edit_wrap" v-model="show">
-      <channel-edit @close="show = false" :userChannelList="userChannelList" @addChannel="addChannelFn"></channel-edit>
+      <channel-edit @close="show = false" :userChannelList="userChannelList" @addChannel="addChannelFn"
+        @delChannel="delChannel"></channel-edit>
     </van-popup>
   </div>
 </template>
 
 <script>
 import logoPng from '../../assets/toutiao_logo.png'
-import { userChannelAPI, updateChannelListAPI } from '@/api'
+import { userChannelAPI, updateChannelListAPI, deleteChannelAPI } from '@/api'
 import ArticleList from '@/views/Home/ArticleList.vue'
 import ChannelEdit from '@/views/Home/ChannelEdit.vue'
 
@@ -66,6 +67,15 @@ export default {
       await updateChannelListAPI({
         channels: arr
       })
+    },
+
+    async delChannel (id) {
+      await deleteChannelAPI({
+        target: id
+      })
+      const index = this.userChannelList.findIndex(obj => obj.id === id)
+      this.userChannelList.splice(index, 1)
+      this.updateChannel()
     }
   }
 }

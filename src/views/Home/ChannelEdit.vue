@@ -23,7 +23,8 @@
             <!-- 徽标 -->
             <van-badge color="transparent" class="cross-badge">
               <template #content>
-                <van-icon name="cross" class="badge-icon" color="#cfcfcf" size="0.32rem" v-if="isEdit"></van-icon>
+                <van-icon name="cross" class="badge-icon" color="#cfcfcf" size="0.32rem"
+                  v-if="isEdit && obj.name != '推荐'" @click="delChannel(obj.id)"></van-icon>
               </template>
             </van-badge>
           </div>
@@ -76,6 +77,11 @@ export default {
     addChannel (obj) {
       if (this.isEdit === true) {
         this.$emit('addChannel', obj)
+      }
+    },
+    delChannel (id) {
+      if (this.isEdit === true) {
+        this.$emit('delChannel', id)
       }
     }
   }

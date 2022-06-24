@@ -35,9 +35,14 @@ export const updateChannelListAPI = ({ channels }) => {
 export const userChannelAPI = () => {
         return request({
             url: '/v1_0/user/channels'
-                // headers: {
-                //     Authorization: 'Bearer ' + store.state.token
-                // }
+
+        })
+    }
+    // 删除指定用户频道
+export const deleteChannelAPI = ({ target }) => {
+        return request({
+            url: `/v1_0/user/channels/${target}`,
+            method: 'DELETE'
         })
     }
     // 获取文章新闻推荐

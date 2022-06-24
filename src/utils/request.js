@@ -1,5 +1,6 @@
 import ajax from 'axios'
 import store from '@/store'
+import router from '@/router'
 
 const axios = ajax.create({
         // baseURL: 'http://123.57.109.30:8000' // 基地址
@@ -11,18 +12,18 @@ axios.interceptors.response.use(function(response) {
     }, async function(error) {
         if (error.response.status === 401) {
             store.commit('setToken', '')
-            this.$router.push({
+            router.push({
                 path: '/login'
             })
         }
         return Promise.reject(error)
     })
-    // 请求连接 TODO: 第一次登录(无token信息)无法通过
-axios.interceptors.request.use(function(request) {
-    if (store.state.token.length > 0 && request.headers.Authorization === undefined) {
-        request.headers.Authorization = 'Bearer ' + store.state.token
+    // 请求连接
+axios.interceptors.request.use(function(config) {
+    if (store.state.token != null && store.state.token.length > 0) {
+        config.headers.Authorization = 'Bearer ' + store.state.token
     }
-    return request
+    return config
 }, async function(error) {
     return Promise.reject(error)
 })

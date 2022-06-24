@@ -1,13 +1,6 @@
 import request from '@/utils/request'
 // import store from '@/store'
 
-// 获取所有频道列表
-export const allChannelListAPI = () => {
-    return request({
-        url: '/v1_0/channels'
-    })
-}
-
 // 登录
 export const loginAPI = ({
         mobile,
@@ -19,6 +12,22 @@ export const loginAPI = ({
             data: {
                 mobile,
                 code
+            }
+        })
+    }
+    // 获取所有频道列表
+export const allChannelListAPI = () => {
+        return request({
+            url: '/v1_0/channels'
+        })
+    }
+    // 设置用户的频道（重置式）
+export const updateChannelListAPI = ({ channels }) => {
+        return request({
+            url: '/v1_0/user/channels',
+            method: 'PUT',
+            data: {
+                channels: channels
             }
         })
     }

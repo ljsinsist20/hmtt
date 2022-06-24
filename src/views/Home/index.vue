@@ -16,17 +16,17 @@
       </van-tab>
     </van-tabs>
     <!-- +号图标 -->
-     <van-icon name="plus" class="moreChannels" size="0.373rem" @click="show = true" ></van-icon>
-     <!-- 弹出层组件 -->
-     <van-popup class="edit_wrap" v-model="show">
+    <van-icon name="plus" class="moreChannels" size="0.373rem" @click="show = true"></van-icon>
+    <!-- 弹出层组件 -->
+    <van-popup class="edit_wrap" v-model="show">
       <channel-edit @close="show = false" :userChannelList="userChannelList" @addChannel="addChannelFn"></channel-edit>
-     </van-popup>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import logoPng from '../../assets/toutiao_logo.png'
-import { userChannelAPI } from '@/api'
+import { userChannelAPI, updateChannelListAPI } from '@/api'
 import ArticleList from '@/views/Home/ArticleList.vue'
 import ChannelEdit from '@/views/Home/ChannelEdit.vue'
 
@@ -49,8 +49,23 @@ export default {
     this.userChannelList = res.data.data.channels
   },
   methods: {
-    addChannelFn(obj) {
+    addChannelFn (obj) {
       this.userChannelList.push(obj)
+      this.updateChannel()
+    },
+
+    async updateChannel () {
+      const arr = this.userChannelList.map((obj) => {
+        const newObj = { ...obj }
+        return newObj
+      })
+      arr.forEach((obj, index) => {
+        delete obj.name
+        obj.seq = index + 1
+      })
+      await updateChannelListAPI({
+        channels: arr
+      })
     }
   }
 }
@@ -82,7 +97,7 @@ export default {
   z-index: 999;
 }
 
-.edit_wrap{
+.edit_wrap {
   width: 100%;
   height: 100%;
 }

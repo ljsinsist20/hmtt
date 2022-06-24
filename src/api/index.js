@@ -95,7 +95,7 @@ export const articleReportAPI = ({ target, type, remark }) => {
 export const suggestListAPI = ({ q }) => {
     return request({
         url: '/v1_0/suggestion',
-        query: {
+        params: {
             q: q
         }
     })

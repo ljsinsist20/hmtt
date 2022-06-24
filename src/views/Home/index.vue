@@ -11,15 +11,15 @@
     </van-nav-bar>
     <!-- 顶部频道 -->
     <van-tabs v-model="channelId" animated sticky offset-top="1.226667rem">
-      <van-tab v-for="item in channelList" :key="item.id" :title="item.name" :name="item.id">
+      <van-tab v-for="item in userChannelList" :key="item.id" :title="item.name" :name="item.id">
         <article-list :cid="channelId"></article-list>
       </van-tab>
     </van-tabs>
     <!-- +号图标 -->
      <van-icon name="plus" class="moreChannels" size="0.373rem" @click="show = true" ></van-icon>
      <!-- 弹出层组件 -->
-     <van-popup class="edit_wrap" v-model="show" >
-      <channel-edit @close="show = false"></channel-edit>
+     <van-popup class="edit_wrap" v-model="show">
+      <channel-edit @close="show = false" :userChannelList="userChannelList"></channel-edit>
      </van-popup>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
     return {
       imgObj: logoPng,
       channelId: 0, // 默认0是推荐
-      channelList: [],
+      userChannelList: [],
       show: false
     }
   },
@@ -46,7 +46,7 @@ export default {
   },
   async created () {
     const res = await userChannelAPI()
-    this.channelList = res.data.data.channels
+    this.userChannelList = res.data.data.channels
   }
 }
 </script>

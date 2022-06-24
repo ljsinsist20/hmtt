@@ -17,9 +17,9 @@
         <span>编辑</span>
       </div>
       <van-row type="flex">
-        <van-col span="6">
+        <van-col span="6" v-for="obj in userChannelList" :key="obj.id">
           <div class="channel-item van-hairline--surround">
-            名字
+            {{obj.name}}
             <!-- 徽标 -->
             <van-badge color="transparent" class="cross-badge">
               <template #content>
@@ -32,21 +32,45 @@
     </div>
     <!-- 更多频道 -->
     <div class="more-channel-box">
-        <div class="channel-title">
-            <span>点击加载更多频道</span>
-        </div>
-        <van-row type="flex">
-            <van-col span="6">
-                <div class="channel-item van-hairline--surround">名字</div>
-            </van-col>
-        </van-row>
+      <div class="channel-title">
+        <span>点击加载更多频道</span>
+      </div>
+      <van-row type="flex">
+        <van-col span="6" v-for="obj in unChannelList" :key="obj.id">
+          <div class="channel-item van-hairline--surround">{{obj.name}}</div>
+        </van-col>
+      </van-row>
     </div>
   </div>
 </template>
 
 <script>
+import { allChannelListAPI } from '@/api/index'
 export default {
-
+  props: {
+    userChannelList: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data () {
+    return {
+      allChannelList: []
+    }
+  },
+  async created () {
+    const res = await allChannelListAPI()
+    this.allChannelList = res.data.data.channels
+  },
+  computed: {
+    unChannelList () {
+      return this.allChannelList.filter(obj => {
+        const index = this.userChannelList.findIndex(obj2 => obj.id === obj2.id)
+        if (index === -1) return true
+        return false
+      })
+    }
+  }
 }
 </script>
 

@@ -17,13 +17,13 @@ axios.interceptors.response.use(function(response) {
         }
         return Promise.reject(error)
     })
-    // 请求连接
-axios.interceptors.request.use(function(config) {
-    if (store.state.token.length > 0 && config.headers.Authorization === undefined) {
-        config.headers.Authorization = 'Bearer ' + store.state.token
+    // 请求连接 TODO: 第一次登录(无token信息)无法通过
+axios.interceptors.request.use(function(request) {
+    if (store.state.token.length > 0 && request.headers.Authorization === undefined) {
+        request.headers.Authorization = 'Bearer ' + store.state.token
     }
-    return config
-}, function(error) {
+    return request
+}, async function(error) {
     return Promise.reject(error)
 })
 

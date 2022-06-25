@@ -18,20 +18,38 @@ import { timeAgo } from '@/utils/date'
 export default {
   data () {
     return {
-      searchList: []
+      searchList: [],
+      loading: false,
+      finished: false,
+      page: 0
     }
   },
   components: {
     ArticleItem
   },
   async created () {
-    const res = await searchListAPI({
-      q: this.$route.params.kw
-    })
-    res.data.data.results.forEach((item) => {
-      item.pubdate = timeAgo(item.pubdate)
-    })
-    this.searchList = res.data.data.results
+    this.getSearchList()
+  },
+  methods: {
+    async getSearchList () {
+      const res = await searchListAPI({
+        q: this.$route.params.kw,
+        page: this.page
+      })
+      if (res.data.data.results.length === 0) {
+        this.finished = true
+        return
+      }
+      res.data.data.results.forEach((item) => {
+        item.pubdate = timeAgo(item.pubdate)
+      })
+      this.searchList = [...this.searchList, ...res.data.data.results]
+      this.loading = false
+    },
+    onLoad () {
+      this.page++
+      this.getSearchList()
+    }
   }
 }
 </script>

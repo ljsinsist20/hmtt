@@ -101,7 +101,7 @@ export const suggestListAPI = ({ q }) => {
         })
     }
     // 获取搜索结果
-export const searchListAPI = ({ q, page = 1 }) => {
+export const searchListAPI = ({ q, page }) => {
     return request({
         url: '/v1_0/search',
         params: {

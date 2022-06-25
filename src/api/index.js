@@ -118,3 +118,22 @@ export const articleDetailAPI = ({ id }) => {
         url: `/v1_0/articles/${id}`
     })
 }
+
+// 关注用户
+export const followingsUserAPI = ({ target }) => {
+    return request({
+        url: '/v1_0/user/followings',
+        method: 'POST',
+        data: {
+            target: target
+        }
+    })
+}
+
+// 取消关注用户
+export const unFollowingsUserAPI = ({ target }) => {
+    return request({
+        url: `/v1_0/user/followings/${target}`,
+        method: 'DELETE'
+    })
+}

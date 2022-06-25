@@ -13,10 +13,10 @@
           <!-- <img :src="artObj.aut_photo" alt="" class="avatar" /> -->
         </template>
         <template #default>
-            <div>
-                <van-button type="info" size="mini" v-if="artObj.is_followed">已关注</van-button>
-                <van-button icon="plus" type="info" size="mini" v-else>关注</van-button>
-            </div>
+          <div>
+            <van-button type="info" size="mini" v-if="artObj.is_followed" @click="followings(false)">已关注</van-button>
+            <van-button icon="plus" type="info" size="mini" v-else @click="followings(true)">关注</van-button>
+          </div>
         </template>
       </van-cell>
 
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { articleDetailAPI } from '@/api/index'
+import { articleDetailAPI, followingsUserAPI, unFollowingsUserAPI } from '@/api/index'
 
 export default {
   data () {
@@ -46,6 +46,21 @@ export default {
   async created () {
     const res = await articleDetailAPI({ id: this.$route.query.aid })
     this.artObj = res.data.data
+  },
+  methods: {
+    async followings (flag) {
+      if (flag) {
+        await followingsUserAPI({
+          target: this.artObj.aut_id
+        })
+        this.artObj.is_followed = true
+      } else {
+        await unFollowingsUserAPI({
+          target: this.artObj.aut_id
+        })
+        this.artObj.is_followed = false
+      }
+    }
   }
 }
 </script>

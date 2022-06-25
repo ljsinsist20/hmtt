@@ -5,7 +5,7 @@
     </van-nav-bar>
     <!-- 搜索结果 -->
     <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-      <article-item v-for="item in searchList" :obj="item" :key="item.art_id"></article-item>
+      <article-item v-for="item in searchList" :obj="item" :key="item.art_id" :showIcon="false"></article-item>
     </van-list>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-cell-group>
+    <van-cell-group @click="$router.push(`/article_detail?aid=${obj.art_id}`)">
       <van-cell>
         <template #title>
           <div class="title-box">
@@ -18,7 +18,7 @@
               <span>{{obj.comm_count}}</span>
               <span>{{obj.pubdate}}</span>
             </div>
-            <van-icon name="cross" @click="show = true"></van-icon>
+            <van-icon name="cross" @click.stop="show = true" v-if="showIcon"></van-icon>
           </div>
         </template>
       </van-cell>
@@ -38,6 +38,10 @@ export default {
       default () {
         return {}
       }
+    },
+    showIcon: {
+      type: Boolean,
+      default: true
     }
   },
   data () {

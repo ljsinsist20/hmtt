@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import ArticleItem from '@/views/Home/components/ArticleItem.vue'
+import ArticleItem from '@/components/ArticleItem.vue'
 import { artcilesListAPI, articleDislikesAPI, articleReportAPI } from '@/api/index'
 import { timeAgo } from '@/utils/date'
 import { Notify } from 'vant'

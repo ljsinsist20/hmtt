@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import 'amfe-flexible'
 import directiveObj from '@/utils/directives'
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, ActionSheet, Popup, Badge, Row, Col, Search } from 'vant'
+import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, ActionSheet, Popup, Badge, Row, Col, Search, Divider } from 'vant'
 // import axios from 'axios'
 // Vue.prototype.$axios = axios
 Vue.use(NavBar)
@@ -27,6 +27,7 @@ Vue.use(Badge)
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Search)
+Vue.use(Divider)
 
 Vue.use(directiveObj)
 Vue.config.productionTip = false

@@ -93,14 +93,15 @@ export const articleReportAPI = ({ target, type, remark }) => {
 
 // 获取联想建议（自动补全）
 export const suggestListAPI = ({ q }) => {
-        return request({
-            url: '/v1_0/suggestion',
-            params: {
-                q: q
-            }
-        })
-    }
-    // 获取搜索结果
+    return request({
+        url: '/v1_0/suggestion',
+        params: {
+            q: q
+        }
+    })
+}
+
+// 获取搜索结果
 export const searchListAPI = ({ q, page }) => {
     return request({
         url: '/v1_0/search',
@@ -108,5 +109,12 @@ export const searchListAPI = ({ q, page }) => {
             page: page,
             q: q
         }
+    })
+}
+
+// 获取新闻详情
+export const articleDetailAPI = ({ id }) => {
+    return request({
+        url: `/v1_0/articles/${id}`
     })
 }

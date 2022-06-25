@@ -21,7 +21,7 @@ export default {
       searchList: [],
       loading: false,
       finished: false,
-      page: 0
+      page: 1
     }
   },
   components: {
@@ -47,8 +47,10 @@ export default {
       this.loading = false
     },
     onLoad () {
-      this.page++
+      if (this.searchList.length > 0) {
+        this.page++
       this.getSearchList()
+      }
     }
   }
 }

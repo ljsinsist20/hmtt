@@ -132,7 +132,7 @@ export const unFollowingsUserAPI = ({ target }) => {
 }
 
 // 对文章点赞
-export const likingsAPI = ({ target }) => {
+export const likingsArtcileAPI = ({ target }) => {
     return request({
       url: '/v1_0/article/likings',
       method: 'POST',
@@ -143,9 +143,23 @@ export const likingsAPI = ({ target }) => {
 }
 
 // 取消对文章点赞
-export const unLikingsAPI = ({ target }) => {
+export const unLikingsArtcileAPI = ({ target }) => {
     return request({
       url: `/v1_0/article/likings/${target}`,
       method: 'DELETE'
     })
+}
+
+// 获取评论或评论回复
+export const getReviewsAPI = ({ type, source, offset = null, limit = 10 }) => {
+  return request({
+    url: '/v1_0/comments',
+    method: 'GET',
+    params: {
+      type: type,
+      source: source,
+      offset: offset,
+      limit: limit
+    }
+  })
 }

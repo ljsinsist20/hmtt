@@ -27,21 +27,28 @@
       <van-divider>end</van-divider>
 
       <div class="like-box">
-        <van-button icon="good-job" type="danger" size="small" v-if="artObj.attitude === 1" @click="likingsAPI(false)">已点赞</van-button>
-        <van-button icon="good-job-o" type="danger" size="small" plain v-else @click="likingsAPI(true)">点赞</van-button>
+        <van-button icon="good-job" type="danger" size="small" v-if="artObj.attitude === 1" @click="likings(false)">已点赞</van-button>
+        <van-button icon="good-job-o" type="danger" size="small" plain v-else @click="likings(true)">点赞</van-button>
       </div>
     </div>
+      <div>
+        <comment-list :articleId="artObj.art_id"></comment-list>
+      </div>
   </div>
 </template>
 
 <script>
-import { articleDetailAPI, followingsUserAPI, unFollowingsUserAPI, likingsAPI, unLikingsAPI } from '@/api/index'
+import { articleDetailAPI, followingsUserAPI, unFollowingsUserAPI, likingsArtcileAPI, unLikingsArtcileAPI } from '@/api/index'
+import CommentList from '@/views/ArticleDetail/CommentList'
 
 export default {
   data () {
     return {
       artObj: {}
     }
+  },
+  components: {
+    CommentList
   },
   async created () {
     const res = await articleDetailAPI({ id: this.$route.query.aid })
@@ -61,14 +68,14 @@ export default {
         this.artObj.is_followed = false
       }
     },
-    async likingsAPI(flag) {
+    async likings (flag) {
       if (flag) {
-        await likingsAPI({
+        await likingsArtcileAPI({
             target: this.artObj.art_id
           })
         this.artObj.attitude = 1
       } else {
-        await unLikingsAPI({
+        await unLikingsArtcileAPI({
           target: this.artObj.art_id
         })
         this.artObj.attitude = false

@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-// import store from '@/store'
 
 // 登录
 export const loginAPI = ({
@@ -54,9 +53,6 @@ export const deleteChannelAPI = ({ target }) => {
 export const artcilesListAPI = ({ channelId, timestamp }) => {
     return request({
         url: '/v1_0/articles',
-        // headers: {
-        //     Authorization: 'Bearer ' + store.state.token
-        // },
         params: {
             channel_id: channelId,
             timestamp: timestamp || (new Date()).getTime()
@@ -72,9 +68,6 @@ export const articleDislikesAPI = ({ target }) => {
         data: {
             target: target
         }
-        // headers: {
-        //     Authorization: 'Bearer ' + store.state.token
-        // }
     })
 }
 
@@ -135,5 +128,24 @@ export const unFollowingsUserAPI = ({ target }) => {
     return request({
         url: `/v1_0/user/followings/${target}`,
         method: 'DELETE'
+    })
+}
+
+// 对文章点赞
+export const likingsAPI = ({ target }) => {
+    return request({
+      url: '/v1_0/article/likings',
+      method: 'POST',
+      data: {
+          target: target
+      }
+    })
+}
+
+// 取消对文章点赞
+export const unLikingsAPI = ({ target }) => {
+    return request({
+      url: `/v1_0/article/likings/${target}`,
+      method: 'DELETE'
     })
 }

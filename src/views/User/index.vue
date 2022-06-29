@@ -1,6 +1,6 @@
 <template>
   <div>
-      user
+      小思同学
   </div>
 </template>
 

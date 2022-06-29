@@ -27,16 +27,15 @@
       <van-divider>end</van-divider>
 
       <div class="like-box">
-        <!-- TODO: 未完成-->
-        <van-button icon="good-job" type="danger" size="small" v-if="artObj.attribute === 1">已点赞</van-button>
-        <van-button icon="good-job-o" type="danger" size="small" plain v-else>点赞</van-button>
+        <van-button icon="good-job" type="danger" size="small" v-if="artObj.attitude" @click="likingsAPI(false)">已点赞</van-button>
+        <van-button icon="good-job-o" type="danger" size="small" plain v-else @click="likingsAPI(true)">点赞</van-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { articleDetailAPI, followingsUserAPI, unFollowingsUserAPI } from '@/api/index'
+import { articleDetailAPI, followingsUserAPI, unFollowingsUserAPI, likingsAPI, unLikingsAPI } from '@/api/index'
 
 export default {
   data () {
@@ -60,6 +59,19 @@ export default {
           target: this.artObj.aut_id
         })
         this.artObj.is_followed = false
+      }
+    },
+    async likingsAPI(flag) {
+      if (flag) {
+        await likingsAPI({
+            target: this.artObj.art_id
+          })
+        this.artObj.attitude = true
+      } else {
+        await unLikingsAPI({
+          target: this.artObj.art_id
+        })
+        this.artObj.attitude = false
       }
     }
   }

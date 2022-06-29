@@ -27,7 +27,7 @@
       <van-divider>end</van-divider>
 
       <div class="like-box">
-        <van-button icon="good-job" type="danger" size="small" v-if="artObj.attitude" @click="likingsAPI(false)">已点赞</van-button>
+        <van-button icon="good-job" type="danger" size="small" v-if="artObj.attitude === 1" @click="likingsAPI(false)">已点赞</van-button>
         <van-button icon="good-job-o" type="danger" size="small" plain v-else @click="likingsAPI(true)">点赞</van-button>
       </div>
     </div>
@@ -66,7 +66,7 @@ export default {
         await likingsAPI({
             target: this.artObj.art_id
           })
-        this.artObj.attitude = true
+        this.artObj.attitude = 1
       } else {
         await unLikingsAPI({
           target: this.artObj.art_id

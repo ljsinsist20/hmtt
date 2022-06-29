@@ -27,6 +27,7 @@
       <van-divider>end</van-divider>
 
       <div class="like-box">
+        <!-- TODO: 未完成-->
         <van-button icon="good-job" type="danger" size="small" v-if="artObj.attribute === 1">已点赞</van-button>
         <van-button icon="good-job-o" type="danger" size="small" plain v-else>点赞</van-button>
       </div>

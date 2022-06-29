@@ -32,7 +32,7 @@
       </div>
     </div>
       <div>
-        <comment-list :articleId="artObj.art_id"></comment-list>
+        <comment-list></comment-list>
       </div>
   </div>
 </template>

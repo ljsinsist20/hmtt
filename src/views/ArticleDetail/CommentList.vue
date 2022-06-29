@@ -26,11 +26,6 @@
 <script>
 import { getReviewsAPI } from '@/api/index'
 export default {
-  props: {
-    articleId: {
-      type: String
-    }
-  },
   data() {
     return {
       reviews: []
@@ -42,7 +37,7 @@ export default {
   methods: {
     async getReviews() {
       console.log(this.articleId)
-      const res = await getReviewsAPI({ type: 'a', source: this.articleId })
+      const res = await getReviewsAPI({ type: 'a', source: this.$route.query.aid })
       console.log(res.data.data)
     }
   }

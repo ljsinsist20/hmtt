@@ -28,8 +28,8 @@
       <van-icon name="arrow-left" size="0.48rem" @click="$router.back()" />
       <div class="ipt-cmt-div" @click="isShow = false">发表评论</div>
       <div class="icon-box">
-        <van-badge :content="totalCount" :max="99" @click="moveFn">
-          <van-icon name="comment-o" size="0.53333334rem" />
+        <van-badge :content="totalCount" :max="99" >
+          <van-icon name="comment-o" size="0.53333334rem" @click="moveFn" />
         </van-badge>
         <van-icon name="star-o" size="0.53333334rem" />
         <van-icon name="share-o" size="0.53333334rem" />
@@ -84,7 +84,8 @@ export default {
       }
     },
     async moveFn() {
-      document.querySelector('.like-box').scrollIntoView({
+      console.log(1)
+      document.querySelector('.cmt-list').scrollIntoView({
         behavior: 'smooth'
       })
     },

@@ -7,6 +7,7 @@ import User from '@/views/User'
 import Search from '@/views/Search'
 import SearchResult from '@/views/Search/SearchResult'
 import ArticleDetail from '@/views/ArticleDetail'
+import Chat from '@/views/Chat'
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,10 @@ const routes = [{
     {
         path: '/article_detail',
         component: ArticleDetail
+    },
+    {
+      path: '/chat',
+      component: Chat
     }
 ]
 

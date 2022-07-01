@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--TODO 评论刷新加载-->
     <div class="cmt-list" :class="isShow ? 'art-cmt-container-1' : 'art-cmt-container-2'">
       <div class="cmt-item" v-for="item in reviews" :key="item.com_id">
         <div class="cmt-header">

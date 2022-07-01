@@ -14,6 +14,12 @@ export const loginAPI = ({
         }
     })
 }
+// 用户 - 基本资料
+export const userInfoAPI = () => {
+  return request({
+    url: '/v1_0/user'
+  })
+}
 
 // 获取所有频道列表
 export const allChannelListAPI = () => {

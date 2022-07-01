@@ -163,3 +163,35 @@ export const getReviewsAPI = ({ type, source, offset = null, limit = 10 }) => {
     }
   })
 }
+
+// 对文章或者评论进行评论
+export const setReviewAPI = ({ target, content, art_id = null }) => {
+  return request({
+    url: '/v1_0/comments',
+    method: 'POST',
+    data: {
+      target: target,
+      content: content,
+      art_id: art_id
+    }
+  })
+}
+
+// 对评论或评论回复点赞
+export const likeReviewAPI = ({ target }) => {
+  return request({
+    url: '/v1_0/comment/likings',
+    method: 'POST',
+    data: {
+        target: target
+    }
+  })
+}
+
+// 取消对评论或评论回复点赞
+export const unLikeReviewAPI = ({ target }) => {
+  return request({
+    url: `/v1_0/comment/likings/${target}`,
+    method: 'DELETE'
+  })
+}

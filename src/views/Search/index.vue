@@ -26,6 +26,7 @@ import { suggestListAPI } from '@/api/index'
 import { lightFn } from '@/utils/str'
 
 export default {
+  name: 'Search',
   data () {
     return {
       kw: '',

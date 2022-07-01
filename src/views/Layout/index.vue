@@ -2,7 +2,9 @@
   <div>
       <!-- 中间内容 -->
       <div class="home_container">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </div>
       <!-- 底部导航 -->
       <van-tabbar route v-model="active">

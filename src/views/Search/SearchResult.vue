@@ -16,6 +16,7 @@ import ArticleItem from '@/components/ArticleItem.vue'
 import { timeAgo } from '@/utils/date'
 
 export default {
+  name: 'SearchResult',
   data () {
     return {
       searchList: [],

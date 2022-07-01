@@ -22,7 +22,9 @@
 
       <van-divider></van-divider>
 
-      <div class="art-content" v-html="artObj.content"></div>
+      <van-loading v-if="artObj.title === undefined" color="#1989fa">文章疯狂加载ing...</van-loading>
+
+      <div v-else class="art-content" v-html="artObj.content"></div>
 
       <van-divider>end</van-divider>
 
@@ -42,6 +44,7 @@ import { articleDetailAPI, followingsUserAPI, unFollowingsUserAPI, likingsArtcil
 import CommentList from '@/views/ArticleDetail/CommentList'
 
 export default {
+  name: 'Detail',
   data () {
     return {
       artObj: {}
